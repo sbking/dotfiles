@@ -1,0 +1,17 @@
+.DS_Store
+*.swp
+*.swo
+*.tmp
+*.bak
+
+# Keep local experiments and generated archives out of the public repo.
+.env
+.env.*
+!.env.example
+backup/
+tmp/
+
+# Never commit auth-bearing config.
+home/dot_config/gh/hosts.yml
+home/dot_config/graphite/auth
+home/dot_ssh/

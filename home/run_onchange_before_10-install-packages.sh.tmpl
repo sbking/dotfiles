@@ -1,0 +1,43 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/bin/sh
+set -eu
+
+if ! command -v brew >/dev/null 2>&1; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+brew bundle --file="{{ .chezmoi.sourceDir }}/../Brewfile"
+{{ else if eq .chezmoi.os "linux" -}}
+#!/bin/sh
+set -eu
+
+if [ -r /etc/os-release ]; then
+  . /etc/os-release
+else
+  ID=unknown
+fi
+
+if [ "${ID:-}" != "fedora" ]; then
+  echo "Skipping package install for unsupported Linux distribution: ${ID:-unknown}"
+  exit 0
+fi
+
+sudo dnf install -y \
+  bat \
+  curl \
+  fd-find \
+  git \
+  htop \
+  jq \
+  neovim \
+  ripgrep \
+  rsync \
+  tmux \
+  tree \
+  wget \
+  zsh
+
+if ! command -v mise >/dev/null 2>&1; then
+  curl https://mise.run | sh
+fi
+{{- end }}
