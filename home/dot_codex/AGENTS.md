@@ -7,6 +7,12 @@ reference clones under `~/Projects/refs/github.com/<owner>/<repo>` so agents can
 read upstream source and docs directly instead of guessing from stale search
 results.
 
+Run down uncertainty before answering or changing code. Treat words like "may",
+"probably", "usually", "unless", and "I think" as prompts to verify the fact
+when practical. Use the available tools: inspect local state, read reference
+repositories, search primary sources, and delegate bounded research to subagents
+when parallel exploration would reduce uncertainty.
+
 ## Think Stackly
 
 As agents make code generation cheap and massively parallel, the hard part
