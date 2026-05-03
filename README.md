@@ -37,6 +37,14 @@ small and independently reviewable. Create dependent work on top of its parent
 branch, then record the relationship with Git Town before opening or updating
 pull requests.
 
+Use Git Town's stack-aware commands for common stack maintenance:
+
+```sh
+git town sync --stack
+git town walk --stack 'git diff --check'
+git town diff-parent
+```
+
 ## Notes
 
 Secrets and machine-local auth files intentionally stay out of this repo. That
