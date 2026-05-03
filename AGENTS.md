@@ -11,6 +11,6 @@ configured; other platforms may be added later.
   splits into reviewable layers.
 - Use Git Town's stack-aware commands instead of raw Git plumbing when updating
   the stack. Prefer `git town sync --stack` for restacking after ancestor
-  changes and `git town walk --stack <cmd>` for stack-wide validation.
+  changes and `git town walk --stack -- <cmd>` for stack-wide validation.
 - Do not commit secrets or auth state, including `gh/hosts.yml`, Graphite auth, SSH keys, or tokens.
 - Keep bootstrap scripts idempotent; they may run on new machines.

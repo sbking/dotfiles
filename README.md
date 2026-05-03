@@ -41,7 +41,7 @@ Use Git Town's stack-aware commands for common stack maintenance:
 
 ```sh
 git town sync --stack
-git town walk --stack 'git diff --check'
+git town walk --stack -- git diff --check
 git town diff-parent
 ```
 
