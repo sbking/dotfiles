@@ -2,6 +2,8 @@
 #!/bin/sh
 set -eu
 
+# mise config checksum: {{ include "dot_config/mise/config.toml" | sha256sum }}
+
 if [ -d "$HOME/.local/bin" ]; then
   PATH="$HOME/.local/bin:$PATH"
   export PATH
