@@ -14,7 +14,8 @@ chezmoi init --apply https://github.com/sbking/dotfiles.git
 
 The first apply runs the package setup scripts for the detected platform, then
 installs configured mise tools. On macOS, package state comes from `Brewfile`.
-On Fedora, package setup uses the repo's platform script path.
+On Fedora, `home/run_onchange_before_10-install-packages.sh.tmpl` installs
+packages with `dnf`. Other Linux distributions skip package installation.
 
 After the first apply, open a new shell and run:
 
@@ -38,6 +39,7 @@ chezmoi --source "$PWD" apply
 Run the local validation suite:
 
 ```sh
+mise trust
 mise run validate
 ```
 
