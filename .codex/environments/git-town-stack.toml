@@ -1,0 +1,17 @@
+# Example Codex local environment for stack-aware worktrees.
+version = 1
+name = "Git Town stack"
+
+[setup]
+script = '''
+# For a stacked worktree, set STACK_PARENT_BRANCH in a wrapper script:
+#   STACK_PARENT_BRANCH=feat/parent-branch ./scripts/setup-git-town-link.sh
+#
+# Codex runs this at the new worktree's project root.
+./scripts/setup-git-town-link.sh "${STACK_PARENT_BRANCH:?Set STACK_PARENT_BRANCH to the parent branch for this worktree.}"
+'''
+
+[cleanup]
+script = '''
+true
+'''
