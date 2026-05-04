@@ -1,0 +1,14 @@
+#!/bin/sh
+set -eu
+
+session="${1:-main}"
+
+if [ $# -gt 0 ]; then
+  shift
+fi
+
+if [ $# -gt 0 ]; then
+  exec tmux new-session -A -s "$session" "$@"
+fi
+
+exec tmux new-session -A -s "$session"
