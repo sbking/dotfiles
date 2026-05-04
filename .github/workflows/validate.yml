@@ -1,0 +1,25 @@
+name: Validate
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  dotfiles:
+    name: Dotfiles
+    runs-on: macos-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Install validation tools
+        run: brew install chezmoi fish
+
+      - name: Run quick validation
+        run: scripts/validate.sh --quick
