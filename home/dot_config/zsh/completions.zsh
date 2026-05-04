@@ -11,15 +11,18 @@ for completions_dir in \
   "$HOME/.local/share/zsh/site-functions"
 do
   if [ -d "$completions_dir" ]; then
-    fpath=("$completions_dir" $fpath)
+    case " ${fpath[*]} " in
+      *" $completions_dir "*) ;;
+      *) fpath=("$completions_dir" $fpath) ;;
+    esac
   fi
 done
 unset completions_dir
 
 autoload -Uz compinit
 if [ -n "$zsh_compdump" ]; then
-  compinit -d "$zsh_compdump"
+  compinit -i -d "$zsh_compdump"
 else
-  compinit
+  compinit -i
 fi
 unset zsh_cache_dir zsh_compdump
