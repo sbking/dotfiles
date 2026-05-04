@@ -4,12 +4,11 @@ name = "Git Town stack"
 
 [setup]
 script = '''
-# For a stacked worktree, replace the parent branch before saving this
-# environment in Codex, or set STACK_PARENT_BRANCH in a wrapper script:
+# For a stacked worktree, set STACK_PARENT_BRANCH in a wrapper script:
 #   STACK_PARENT_BRANCH=feat/parent-branch ./scripts/setup-git-town-link.sh
 #
 # Codex runs this at the new worktree's project root.
-STACK_PARENT_BRANCH="${STACK_PARENT_BRANCH:-}" ./scripts/setup-git-town-link.sh
+./scripts/setup-git-town-link.sh "${STACK_PARENT_BRANCH:?Set STACK_PARENT_BRANCH to the parent branch for this worktree.}"
 '''
 
 [cleanup]

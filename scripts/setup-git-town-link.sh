@@ -47,14 +47,21 @@ existing_parent="$(git config --get "$config_key" || true)"
 if [ -z "$parent" ]; then
   if [ -n "$existing_parent" ]; then
     echo "Git Town parent already set: $child -> $existing_parent"
+    exit 0
   else
-    echo "No parent branch supplied; set STACK_PARENT_BRANCH or pass the parent branch as the first argument."
+    echo "No parent branch supplied; set STACK_PARENT_BRANCH or pass the parent branch as the first argument." >&2
+    exit 1
   fi
-  exit 0
 fi
 
 if [ "$parent" = "$child" ]; then
   echo "Parent branch cannot equal child branch: $child" >&2
+  exit 1
+fi
+
+if ! git show-ref --verify --quiet "refs/heads/$parent" &&
+   ! git show-ref --verify --quiet "refs/remotes/origin/$parent"; then
+  echo "Parent branch not found locally or on origin: $parent" >&2
   exit 1
 fi
 

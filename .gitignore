@@ -16,3 +16,13 @@ home/dot_config/gh/hosts.yml
 home/dot_config/graphite/auth
 home/dot_config/graphite/user_config
 home/dot_ssh/
+
+# Keep Codex machine-local state out of this public repo.
+home/dot_codex/.codex-global-state.json
+home/dot_codex/auth.json
+home/dot_codex/cache/
+home/dot_codex/history*
+home/dot_codex/log/
+home/dot_codex/projects/
+home/dot_codex/sessions/
+home/dot_codex/shell-snapshots/
