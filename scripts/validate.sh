@@ -3,6 +3,12 @@ set -eu
 
 repo_root="$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
 quick=false
+rendered="${TMPDIR:-/tmp}/dotfiles-validate-rendered-$$.sh"
+
+cleanup() {
+  rm -f "$rendered"
+}
+trap cleanup EXIT HUP INT TERM
 
 case "${1:-}" in
   --quick)
@@ -61,10 +67,9 @@ else
 fi
 
 if command -v chezmoi >/dev/null 2>&1; then
-  for file in home/run_*.sh.tmpl; do
+  for file in home/run_*.sh.tmpl home/dot_zprofile.tmpl; do
     [ -f "$file" ] || continue
     printf '\n==> chezmoi execute-template < %s | sh -n\n' "$file"
-    rendered="${TMPDIR:-/tmp}/dotfiles-validate-rendered-$$.sh"
     chezmoi --source "$repo_root" execute-template < "$file" > "$rendered"
     sh -n "$rendered"
     rm -f "$rendered"
@@ -80,7 +85,7 @@ if [ "$quick" = true ]; then
 fi
 
 if command -v brew >/dev/null 2>&1; then
-  run brew bundle check --file="$repo_root/Brewfile"
+  run env HOMEBREW_NO_AUTO_UPDATE=1 brew bundle check --file="$repo_root/Brewfile"
 else
   echo "Skipping Homebrew bundle check: brew is not installed."
 fi
