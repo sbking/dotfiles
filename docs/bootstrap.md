@@ -65,6 +65,10 @@ scripts/validate.sh --quick
 git town walk --stack -- git diff --check
 ```
 
+Squash merges use PR titles as the final commit subjects. Keep PR titles in
+Conventional Commits format, for example `feat: add shell ergonomics` or
+`docs: document bootstrap workflow`.
+
 ## Secrets
 
 Do not apply or commit machine-local auth state. Keep files like `gh/hosts.yml`,
