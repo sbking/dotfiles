@@ -8,6 +8,10 @@ end
 
 set -g fish_greeting
 
+if command -q starship
+    starship init fish | source
+end
+
 if not set -q EDITOR
     set -gx EDITOR nvim
 end
