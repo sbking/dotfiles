@@ -12,5 +12,8 @@ configured; other platforms may be added later.
 - Use Git Town's stack-aware commands instead of raw Git plumbing when updating
   the stack. Prefer `git town sync --stack` for restacking after ancestor
   changes and `git town walk --stack -- <cmd>` for stack-wide validation.
+- For generated worktrees, use `scripts/setup-git-town-link.sh` to record the
+  Git Town parent relationship. Pass the parent explicitly, either as the first
+  argument or with `STACK_PARENT_BRANCH`.
 - Do not commit secrets or auth state, including `gh/hosts.yml`, Graphite auth, SSH keys, or tokens.
 - Keep bootstrap scripts idempotent; they may run on new machines.

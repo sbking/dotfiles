@@ -20,8 +20,11 @@ chezmoi --source "$PWD" apply
 
 ## Layout
 
+- `.codex/environments/` contains repo-local Codex environment definitions for
+  worktree setup.
 - `.chezmoiroot` tells chezmoi that `home/` is the source-state root.
 - `git-town.toml` captures the shared branch-stack workflow for Git Town.
+- `scripts/` contains helper scripts used by local tools and setup flows.
 - `home/` contains chezmoi-managed files using source-state names such as
   `dot_zshrc.tmpl` and `dot_config/mise/config.toml`.
 - `Brewfile` captures macOS/Homebrew packages and casks.
@@ -45,8 +48,20 @@ git town walk --stack -- git diff --check
 git town diff-parent
 ```
 
+When an agent creates a new worktree for a stacked change, run:
+
+```sh
+STACK_PARENT_BRANCH=feat/parent-branch ./scripts/setup-git-town-link.sh
+```
+
+The same command can be used from Codex or T3Code setup scripts. The repo also
+includes `.codex/environments/git-town-stack.toml` as a Codex environment
+wrapper for this helper; set the parent branch before using it for a specific
+stacked child.
+
 ## Notes
 
 Secrets and machine-local auth files intentionally stay out of this repo. That
 includes files such as `~/.config/gh/hosts.yml`, Graphite auth, SSH keys, and
-application tokens.
+application tokens. Codex app-generated state such as marketplace cache paths,
+session databases, and per-project trust entries also stays machine-local.
