@@ -17,9 +17,13 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: Install validation tools
         run: brew install chezmoi fish
 
       - name: Run quick validation
+        env:
+          VALIDATE_DIFF_RANGE: ${{ github.event_name == 'pull_request' && format('origin/{0}...HEAD', github.base_ref) || 'HEAD~1..HEAD' }}
         run: scripts/validate.sh --quick
