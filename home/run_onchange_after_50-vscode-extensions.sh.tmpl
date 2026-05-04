@@ -1,0 +1,9 @@
+#!/bin/sh
+set -eu
+
+if command -v code >/dev/null 2>&1; then
+  code --install-extension Catppuccin.catppuccin-vsc-pack
+  code --install-extension Catppuccin.catppuccin-vsc-icons
+else
+  echo "Skipping VS Code extension setup: code is not installed."
+fi
