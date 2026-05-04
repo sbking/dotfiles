@@ -1,0 +1,32 @@
+{
+  "$schema": "https://raw.githubusercontent.com/manaflow-ai/cmux/main/web/data/cmux-settings.schema.json",
+  "schemaVersion": 1,
+  "app": {
+    "appearance": "dark"
+  },
+  "browser": {
+    "theme": "dark"
+  },
+  "workspaceColors": {
+    "indicatorStyle": "leftRail",
+    "colors": {
+      "Rosewater": "#F5E0DC",
+      "Flamingo": "#F2CDCD",
+      "Pink": "#F5C2E7",
+      "Mauve": "#CBA6F7",
+      "Red": "#F38BA8",
+      "Maroon": "#EBA0AC",
+      "Peach": "#FAB387",
+      "Yellow": "#F9E2AF",
+      "Green": "#A6E3A1",
+      "Teal": "#94E2D5",
+      "Sky": "#89DCEB",
+      "Sapphire": "#74C7EC",
+      "Blue": "#89B4FA",
+      "Lavender": "#B4BEFE"
+    }
+  },
+  "sidebarAppearance": {
+    "matchTerminalBackground": true
+  }
+}
