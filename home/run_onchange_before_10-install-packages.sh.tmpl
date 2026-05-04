@@ -6,6 +6,7 @@ if ! command -v brew >/dev/null 2>&1; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
+# Brewfile checksum: {{ include "../Brewfile" | sha256sum }}
 brew bundle --file="{{ .chezmoi.sourceDir }}/../Brewfile"
 {{ else if eq .chezmoi.os "linux" -}}
 #!/bin/sh
@@ -26,6 +27,8 @@ sudo dnf install -y \
   bat \
   curl \
   fd-find \
+  fastfetch \
+  ffmpeg-free \
   git \
   htop \
   jq \
