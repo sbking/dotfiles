@@ -1,3 +1,7 @@
+if not contains -- "$HOME/.local/bin" $PATH
+    set -gx PATH "$HOME/.local/bin" $PATH
+end
+
 if command -q mise
     mise activate fish | source
 end
@@ -14,10 +18,6 @@ end
 
 if not set -q PAGER
     set -gx PAGER less
-end
-
-if not contains -- "$HOME/.local/bin" $PATH
-    set -gx PATH "$HOME/.local/bin" $PATH
 end
 
 alias ll 'ls -lah'
