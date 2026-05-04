@@ -1,0 +1,7 @@
+[tasks.validate]
+description = "Run the local dotfiles validation suite"
+run = "scripts/validate.sh"
+
+[tasks."validate:quick"]
+description = "Run fast syntax and whitespace checks"
+run = "scripts/validate.sh --quick"
