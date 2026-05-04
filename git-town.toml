@@ -1,0 +1,11 @@
+[branches]
+main = "main"
+perennials = []
+
+[hosting]
+dev-remote = "origin"
+
+[sync]
+feature-strategy = "rebase"
+perennial-strategy = "ff-only"
+upstream = false

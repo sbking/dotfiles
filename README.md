@@ -21,6 +21,7 @@ chezmoi --source "$PWD" apply
 ## Layout
 
 - `.chezmoiroot` tells chezmoi that `home/` is the source-state root.
+- `git-town.toml` captures the shared branch-stack workflow for Git Town.
 - `home/` contains chezmoi-managed files using source-state names such as
   `dot_zshrc.tmpl` and `dot_config/mise/config.toml`.
 - `Brewfile` captures macOS/Homebrew packages and casks.
@@ -28,6 +29,21 @@ chezmoi --source "$PWD" apply
   macOS and Fedora, and skips package installation on other Linux distributions.
 - `home/run_onchange_after_20-mise-install.sh.tmpl` installs configured mise
   tools after package setup.
+
+## Branch Stacks
+
+This repo uses Git Town for local branch-stack metadata. Keep stacked changes
+small and independently reviewable. Create dependent work on top of its parent
+branch, then record the relationship with Git Town before opening or updating
+pull requests.
+
+Use Git Town's stack-aware commands for common stack maintenance:
+
+```sh
+git town sync --stack
+git town walk --stack -- git diff --check
+git town diff-parent
+```
 
 ## Notes
 
