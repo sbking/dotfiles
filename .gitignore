@@ -14,4 +14,5 @@ tmp/
 # Never commit auth-bearing config.
 home/dot_config/gh/hosts.yml
 home/dot_config/graphite/auth
+home/dot_config/graphite/user_config
 home/dot_ssh/
