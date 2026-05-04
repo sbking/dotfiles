@@ -18,6 +18,9 @@ chezmoi --source "$PWD" diff
 chezmoi --source "$PWD" apply
 ```
 
+See [docs/bootstrap.md](docs/bootstrap.md) for first-machine setup, local
+validation, and stack workflow notes.
+
 ## Layout
 
 - `.codex/environments/` contains repo-local Codex environment definitions for
@@ -25,6 +28,8 @@ chezmoi --source "$PWD" apply
 - `.chezmoiroot` tells chezmoi that `home/` is the source-state root.
 - `git-town.toml` captures the shared branch-stack workflow for Git Town.
 - `scripts/` contains helper scripts used by local tools and setup flows.
+- `scripts/validate.sh` runs the local validation suite; `mise run validate`
+  and `mise run validate:quick` wrap it.
 - `home/` contains chezmoi-managed files using source-state names such as
   `dot_zshrc.tmpl` and `dot_config/mise/config.toml`.
 - `Brewfile` captures macOS/Homebrew packages and casks.
