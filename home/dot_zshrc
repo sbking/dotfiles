@@ -1,8 +1,8 @@
-if command -v mise >/dev/null 2>&1; then
-  eval "$(mise activate zsh)"
-fi
-
 for config in "$HOME"/.config/zsh/*.zsh; do
   [ -r "$config" ] && . "$config"
 done
 unset config
+
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate zsh)"
+fi
