@@ -20,7 +20,8 @@ Usage: scripts/validate.sh [--quick]
 
 Runs repo-local validation for these chezmoi dotfiles.
 
---quick skips checks that may start external tools or render live machine state.
+Set VALIDATE_DIFF_RANGE to check committed whitespace over a specific git range.
+--quick skips optional runtime smoke checks for tools like Homebrew and tmux.
 EOF
     exit 0
     ;;
@@ -40,7 +41,12 @@ run() {
 }
 
 if command -v git >/dev/null 2>&1; then
-  run git diff --check
+  if [ -n "${VALIDATE_DIFF_RANGE:-}" ]; then
+    run git diff --check "$VALIDATE_DIFF_RANGE"
+  else
+    run git diff --check
+    run git diff --cached --check
+  fi
 fi
 
 if command -v sh >/dev/null 2>&1; then
@@ -48,6 +54,16 @@ if command -v sh >/dev/null 2>&1; then
     [ -f "$file" ] || continue
     run sh -n "$file"
   done
+  for file in home/dot_local/bin/executable_*; do
+    [ -f "$file" ] || continue
+    first_line="$(IFS= read -r line < "$file" && printf '%s' "$line" || true)"
+    case "$first_line" in
+      *"/sh"|*" env sh")
+        run sh -n "$file"
+        ;;
+    esac
+  done
+  unset first_line line
 fi
 
 if command -v fish >/dev/null 2>&1; then
@@ -97,7 +113,7 @@ else
 fi
 
 if command -v tmux >/dev/null 2>&1 && [ -f home/dot_config/tmux/tmux.conf ]; then
-  run tmux -f "$repo_root/home/dot_config/tmux/tmux.conf" start-server \; source-file "$repo_root/home/dot_config/tmux/tmux.conf" \; display-message ok \; kill-server
+  run tmux -L "dotfiles-validate-$$" -f "$repo_root/home/dot_config/tmux/tmux.conf" start-server \; source-file "$repo_root/home/dot_config/tmux/tmux.conf" \; display-message ok \; kill-server
 else
   echo "Skipping tmux config check: tmux or config is not available."
 fi

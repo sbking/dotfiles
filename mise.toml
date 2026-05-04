@@ -3,5 +3,5 @@ description = "Run the local dotfiles validation suite"
 run = "scripts/validate.sh"
 
 [tasks."validate:quick"]
-description = "Run fast syntax and whitespace checks"
+description = "Run syntax, whitespace, and chezmoi checks without optional runtime smoke tests"
 run = "scripts/validate.sh --quick"
