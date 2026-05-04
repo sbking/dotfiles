@@ -1,0 +1,7 @@
+{
+  "workbench.colorTheme": "Catppuccin Mocha",
+  "workbench.iconTheme": "catppuccin-mocha",
+  "catppuccin.accentColor": "mauve",
+  "catppuccin.syncWithIconPack": true,
+  "editor.fontFamily": "'Iosevka Nerd Font Mono', Menlo, Monaco, 'Courier New', monospace"
+}
