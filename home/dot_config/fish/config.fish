@@ -2,6 +2,14 @@ if not contains -- "$HOME/.local/bin" $PATH
     set -gx PATH "$HOME/.local/bin" $PATH
 end
 
+if not set -q LANG
+    set -gx LANG C.UTF-8
+end
+
+if not set -q LC_CTYPE
+    set -gx LC_CTYPE C.UTF-8
+end
+
 if command -q mise
     mise activate fish | source
 end
