@@ -23,9 +23,18 @@ if [ "${ID:-}" != "fedora" ]; then
   exit 0
 fi
 
+if ! dnf config-manager --help >/dev/null 2>&1; then
+  sudo dnf install -y dnf-plugins-core
+fi
+
+if [ ! -r /etc/yum.repos.d/tailscale.repo ]; then
+  sudo dnf config-manager --add-repo https://pkgs.tailscale.com/stable/fedora/tailscale.repo
+fi
+
 sudo dnf install -y \
   bat \
   curl \
+  dnf-plugins-core \
   fd-find \
   fastfetch \
   ffmpeg-free \
@@ -38,12 +47,17 @@ sudo dnf install -y \
   neovim \
   ripgrep \
   rsync \
+  tailscale \
   tmux \
   tree \
   wget \
   wl-clipboard \
   zoxide \
   zsh
+
+if command -v systemctl >/dev/null 2>&1; then
+  sudo systemctl enable --now tailscaled
+fi
 
 if ! command -v mise >/dev/null 2>&1; then
   curl https://mise.run | sh
