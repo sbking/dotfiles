@@ -27,6 +27,29 @@ fastfetch
 If fish was installed and configured as the login shell, start a fresh terminal
 session before judging shell behavior.
 
+## Tailscale
+
+Package setup installs Tailscale on supported platforms.
+
+On macOS, open the Tailscale app and complete the onboarding flow:
+
+```sh
+open -a Tailscale
+```
+
+On Fedora, the package setup enables `tailscaled`. Sign in with:
+
+```sh
+sudo tailscale up
+```
+
+Verify either platform after login:
+
+```sh
+tailscale status
+tailscale ip
+```
+
 ## Existing Checkout
 
 From the repo root, preview and apply intentionally:
