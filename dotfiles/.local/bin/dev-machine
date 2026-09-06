@@ -1,0 +1,4 @@
+#!/bin/sh
+set -eu
+if [ "$#" -eq 0 ]; then set -- status; fi
+exec "$HOME/.local/bin/mise" -C "$HOME/Projects/sbking/dotfiles-fleet" run "$@"

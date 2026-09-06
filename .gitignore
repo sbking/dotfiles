@@ -26,3 +26,12 @@ home/dot_codex/log/
 home/dot_codex/projects/
 home/dot_codex/sessions/
 home/dot_codex/shell-snapshots/
+
+# Runtime state never belongs in source.
+artifacts/
+*.bundle
+dotfiles/.ssh/
+dotfiles/.config/gh/hosts.yml
+dotfiles/.config/graphite/auth
+dotfiles/.codex/auth.json
+dotfiles/.gitconfig.local

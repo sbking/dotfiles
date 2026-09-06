@@ -15,7 +15,7 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 
 vim.pack.add({
-  { src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
+  { src = "https://github.com/catppuccin/nvim", name = "catppuccin", version = "cb5665990a797b102715188e73c44c3931b3b42e" },
 })
 
 require("catppuccin").setup({

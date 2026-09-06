@@ -1,98 +1,37 @@
-# Bootstrap
+# Bootstrap details
 
-This repo is a public chezmoi source-state checkout. Bootstrap should stay
-idempotent because these steps may run on fresh machines and on machines that
-already have partial setup.
+The public configuration contains machine-independent defaults. `config/mise-version`, `config/mise-sha256.txt`, `[tools]` and `mise.lock` define the versioned toolchain.
 
-## New Machine
+Run prerequisite and bootstrap commands as the development user, using sudo **only** for `scripts/macos-admin.sh` and when mise explicitly prompts for a privileged operation. Never run the entire mise bootstrap as root.
 
-Install from GitHub:
+## Layout
 
-```sh
-chezmoi init --apply https://github.com/sbking/dotfiles.git
-```
+- `mise.toml`: packages, pinned tools, managed dotfiles, repositories, shell and tasks.
+- `dotfiles/`: literal home-relative files, copied by mise; no chezmoi filename encoding.
+- `scripts/`: idempotent prerequisites, backups, validation, inventory and maintenance.
+- `config/managed-paths.txt`: audited backup scope; validated against `[dotfiles]`.
 
-The first apply runs the package setup scripts for the detected platform, then
-installs configured mise tools. On macOS, package state comes from `Brewfile`.
-On Fedora, `home/run_onchange_before_10-install-packages.sh.tmpl` installs
-packages with `dnf`. Other Linux distributions skip package installation.
+The expected installed checkout is `~/Projects/sbking/dotfiles-fleet`; `dev-machine` uses that durable path. Bootstrap never links files to an ephemeral remote staging directory.
 
-After the first apply, open a new shell and run:
+## Host inventory
 
-```sh
-chezmoi doctor --no-network
-fastfetch
-```
+| Host | Chip | Memory | Role |
+| --- | --- | --- | --- |
+| mac-studio-a.local | M3 Ultra | 512 GiB | Development workstation |
+| mac-studio-b.local | M3 Ultra | 512 GiB | Development workstation |
+| mac-mini-a.local | M4 | 16 GiB | Development workstation |
+| mac-mini-b.local | M4 | 16 GiB | Development workstation |
 
-If fish was installed and configured as the login shell, start a fresh terminal
-session before judging shell behavior.
+All four were verified on macOS 26.6.2 (25G83) before rollout. Use hostnames, not DHCP addresses. The same software is installed; workload concurrency and large caches should reflect available resources.
 
-## Tailscale
+## Authentication and restart
 
-Package setup installs Tailscale on supported platforms.
+Public-key SSH is enrolled separately. A restart can leave an Apple Silicon Mac waiting for a password unlock; normal public-key authentication resumes after unlocking. Passwords are entered directly in an interactive SSH terminal, never stored in configuration.
 
-On macOS, open the Tailscale app and complete the onboarding flow:
+Tailscale installation does not enroll the machine. Open Tailscale and authenticate on each Mac. GUI application permissions and account logins are deliberately manual.
 
-```sh
-open -a Tailscale
-```
+## Checks
 
-On Fedora, the package setup enables `tailscaled`. Sign in with:
-
-```sh
-sudo tailscale up
-```
-
-Verify either platform after login:
-
-```sh
-tailscale status
-tailscale ip
-```
-
-## Existing Checkout
-
-From the repo root, preview and apply intentionally:
-
-```sh
-chezmoi --source "$PWD" diff
-chezmoi --source "$PWD" apply
-```
-
-Run the local validation suite:
-
-```sh
-mise trust
-mise run validate
-```
-
-For a faster pre-commit pass:
-
-```sh
-mise run validate:quick
-```
-
-## Stack Workflow
-
-Keep work in dependent branches and record each parent with Git Town. When
-creating a generated worktree, pass the parent explicitly:
-
-```sh
-STACK_PARENT_BRANCH=feat/parent-branch ./scripts/setup-git-town-link.sh
-```
-
-Before pushing or opening PRs, validate the current branch or walk the stack:
-
-```sh
-scripts/validate.sh --quick
-git town walk --stack -- git diff --check
-```
-
-Squash merges use PR titles as the final commit subjects. Keep PR titles in
-Conventional Commits format, for example `feat: add shell ergonomics` or
-`docs: document bootstrap workflow`.
-
-## Secrets
-
-Do not apply or commit machine-local auth state. Keep files like `gh/hosts.yml`,
-Graphite auth, SSH keys, and application tokens out of this repo.
+Preview before apply: `mise bootstrap --dry-run` and `mise bootstrap dotfiles diff`.
+After apply: `mise run doctor`, fresh interactive and non-interactive SSH commands, then a second apply to confirm convergence.
+`mise bootstrap status` inspects configuration state; inventory records versions. A clean result does not prove user logins or external account connectivity.

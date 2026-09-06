@@ -1,4 +1,0 @@
-# Chezmoi source-state only. Auth-bearing files stay machine-local.
-.config/gh/hosts.yml
-.config/graphite/auth
-.ssh/**
