@@ -1,5 +1,5 @@
 # Also applies to non-interactive SSH commands.
-fish_add_path --path --prepend "$HOME/.local/bin" "$HOME/.local/share/mise/shims" /opt/homebrew/bin /opt/homebrew/sbin
+fish_add_path --move --path --prepend "$HOME/.local/bin" "$HOME/.local/share/mise/shims" /opt/homebrew/bin /opt/homebrew/sbin
 if not set -q LANG
     set -gx LANG en_US.UTF-8
 end
@@ -8,7 +8,7 @@ if not set -q LC_CTYPE
 end
 
 if status is-interactive; and command -q mise
-    mise activate fish | source
+    command "$HOME/.local/bin/mise" activate fish | source
 end
 
 set -g fish_greeting

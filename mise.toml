@@ -98,6 +98,8 @@ run = "bash scripts/backup-dotfiles.sh"
 
 "~/.config/mise/mise.lock" = { source = "dotfiles/.config/mise/mise.lock", mode = "copy" }
 
+"~/.config/fish/conf.d/mise-activate.fish" = { source = "dotfiles/.config/fish/conf.d/mise-activate.fish", mode = "copy" }
+
 [tasks.bootstrap]
 description = "Finish editor setup and write the installed-version inventory"
 run = "bash scripts/finish.sh"

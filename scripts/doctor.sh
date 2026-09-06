@@ -5,9 +5,10 @@ failures=0
 check() { echo "Checking: $*"; "$@" || failures=$((failures + 1)); }
 check test "$(mise --version | awk '{print $1}')" = "$(cat config/mise-version)"
 check xcrun --find clang
-check mise bootstrap dotfiles status --missing
-check mise bootstrap packages status --missing
-check mise bootstrap user status --missing
+check python3 scripts/check-state.py dotfiles
+check python3 scripts/check-state.py packages
+check test "$(dscl . -read "/Users/$(id -un)" UserShell | awk '{print $2}')" = /opt/homebrew/bin/fish
+check grep -qxF /opt/homebrew/bin/fish /etc/shells
 for tool in node pnpm bun python uv rustc cargo go codex jj jjui starship; do
     check command -v "$tool"
 done
