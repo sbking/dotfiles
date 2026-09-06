@@ -98,6 +98,11 @@ url = "https://nodejs.org/dist/v24.20.0/node-v24.20.0-linux-x64.tar.gz"
 checksum = "sha256:40e5607e5ecb3db9192723776da2d75d966260fc74a7a9e731c1bd67dda96bc8"
 url = "https://nodejs.org/dist/v24.20.0/node-v24.20.0-darwin-arm64.tar.gz"
 
+[[tools."npm:@withgraphite/graphite-cli"]]
+version = "1.8.6"
+backend = "npm:@withgraphite/graphite-cli"
+specifiers = ["1.8.6"]
+
 [[tools.pnpm]]
 version = "11.25.0"
 backend = "aqua:pnpm/pnpm"

@@ -5,6 +5,7 @@ min_version = "2026.9.1"
 _.path = ["~/.local/bin", "/opt/homebrew/bin", "/opt/homebrew/sbin"]
 
 [tools]
+"npm:@withgraphite/graphite-cli" = "1.8.6"
 node = "24.20.0"
 pnpm = "11.25.0"
 bun = "1.4.1"
@@ -41,14 +42,12 @@ starship = "1.26.0"
 "brew:tree" = { version = "latest", os = "macos/arm64" }
 "brew:wget" = { version = "latest", os = "macos/arm64" }
 "brew:zoxide" = { version = "latest", os = "macos/arm64" }
-"brew:withgraphite/tap/graphite" = { version = "latest", os = "macos/arm64" }
 "brew-cask:1password" = { version = "latest", os = "macos/arm64", adopt = true }
 "brew-cask:brave-browser" = { version = "latest", os = "macos/arm64", adopt = true }
 "brew-cask:cmux" = { version = "latest", os = "macos/arm64", adopt = true }
 "brew-cask:codex-app" = { version = "latest", os = "macos/arm64", adopt = true }
 "brew-cask:font-iosevka-nerd-font" = { version = "latest", os = "macos/arm64", adopt = true }
 "brew-cask:font-iosevka-term-nerd-font" = { version = "latest", os = "macos/arm64", adopt = true }
-"brew-cask:parsec" = { version = "latest", os = "macos/arm64", adopt = true }
 "brew-cask:rustdesk" = { version = "latest", os = "macos/arm64", adopt = true }
 "brew-cask:tailscale-app" = { version = "latest", os = "macos/arm64", adopt = true }
 "brew-cask:visual-studio-code" = { version = "latest", os = "macos/arm64", adopt = true }
@@ -65,6 +64,9 @@ show_pathbar = true
 [bootstrap.macos.defaults]
 "NSGlobalDomain" = { AppleShowAllExtensions = true }
 "com.apple.finder" = { ShowStatusBar = true }
+
+[bootstrap.hooks.post-dotfiles]
+run = "mise trust ~/.config/mise/config.toml"
 
 [bootstrap.hooks.pre-dotfiles]
 run = "bash scripts/backup-dotfiles.sh"

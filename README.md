@@ -27,8 +27,10 @@ Use the full `~/.local/bin/mise` path during initial setup. Project mise configu
 
 ## Reproducibility boundaries
 
-- The mise executable is pinned and checksum-verified. Developer tools use exact versions and a committed `mise.lock` with platform download metadata.
+- The mise executable is pinned and checksum-verified. Developer tools use exact versions and a committed `mise.lock` with platform download metadata where supported (Rust/rustup and npm do not provide all platform URLs).
 - Catppuccin tmux and Neovim sources are pinned to commits.
+- Graphite uses its pinned official npm package because the released mise binary does not support its tap metadata. Parsec remains an optional legacy application on Studio A; its cask lifecycle is unsupported by this mise release. RustDesk and SSH are in the shared baseline.
+
 - Native `brew:` formulae and `brew-cask:` apps use current upstream releases. Homebrew does not retain every old bottle; this is repeatable convergence, **not a bit-for-bit OS image**. Actual versions and the configuration revision are saved in `~/.local/state/dev-machine/inventory.txt`.
 - App Store apps, self-updating GUI apps, and VS Code marketplace extensions have their own update lifecycles. `updates` reports what can be queried; it does not silently bump pinned project runtimes.
 - macOS automatic updates stay enabled. Major OS updates and reboots are supervised over SSH with interactive authentication.
