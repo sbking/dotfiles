@@ -8,7 +8,7 @@ The supported provisioning target is Apple Silicon macOS. The existing shell/edi
 1. Enable Remote Login for the development account and enroll its authorized SSH public keys separately.
 2. Clone this repository at `~/Projects/sbking/dotfiles-fleet` (or transfer a verified Git bundle if Command Line Tools are not installed yet).
 3. Run `sudo bash scripts/macos-admin.sh` for Command Line Tools, the package prefix, power settings and automatic OS/App Store updates.
-4. Run `bash scripts/install-mise.sh`. This installs mise **2026.9.1** from an official release with a checked-in SHA-256.
+4. Run `bash scripts/install-mise.sh`. This installs mise **2026.9.11** from an official release with a checked-in SHA-256.
 5. Run `~/.local/bin/mise trust`, preview with `~/.local/bin/mise bootstrap --dry-run`, then run `~/.local/bin/mise bootstrap --yes`.
 6. Start a fresh SSH/login session, then run `dev-machine doctor` and complete GitHub, Tailscale and application sign-ins on this machine.
 
