@@ -29,6 +29,11 @@ if [ ! -d /opt/homebrew ]; then
 fi
 sudo -u "$dev_user" test -w /opt/homebrew || { echo '/opt/homebrew is not writable by the development account' >&2; exit 1; }
 
+# Vendor package installers may write CLI launchers here on fresh Macs.
+if [ ! -d /usr/local/bin ]; then
+    install -d -o root -g wheel -m 0755 /usr/local/bin
+fi
+
 /usr/bin/pmset -a sleep 0 autorestart 1 womp 1
 for key in AutomaticCheckEnabled AutomaticDownload AutomaticallyInstallMacOSUpdates CriticalUpdateInstall ConfigDataInstall; do
     defaults write /Library/Preferences/com.apple.SoftwareUpdate "$key" -bool true
