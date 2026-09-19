@@ -7,6 +7,7 @@ check test "$(mise --version | awk '{print $1}')" = "$(cat config/mise-version)"
 check xcrun --find clang
 check python3 scripts/check-state.py dotfiles
 check python3 scripts/check-state.py packages
+check python3 scripts/check-tailscale.py
 check test "$(dscl . -read "/Users/$(id -un)" UserShell | awk '{print $2}')" = /opt/homebrew/bin/fish
 check grep -qxF /opt/homebrew/bin/fish /etc/shells
 for tool in node pnpm bun python uv rustc cargo go codex jj jjui starship; do
@@ -26,4 +27,4 @@ check bash -c 'pmset -g custom | grep -Eq "^[[:space:]]*sleep[[:space:]]+0$"'
 check bash -c 'pmset -g custom | grep -Eq "^[[:space:]]*autorestart[[:space:]]+1$"'
 if [ "$failures" -gt 0 ]; then echo "$failures checks failed" >&2; exit 1; fi
 echo 'Development machine checks passed.'
-echo 'GitHub, application logins and Tailscale enrollment remain machine-local; check them separately.'
+echo 'GitHub and application logins remain machine-local; verify the intended tailnet and peer reachability separately.'

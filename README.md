@@ -10,7 +10,9 @@ The supported provisioning target is Apple Silicon macOS. The existing shell/edi
 3. Run `sudo bash scripts/macos-admin.sh` for Command Line Tools, the package prefix, power settings and automatic OS/App Store updates.
 4. Run `bash scripts/install-mise.sh`. This installs mise **2026.9.11** from an official release with a checked-in SHA-256.
 5. Log into the macOS desktop as the development account and leave that session running; Tailscale's package installer launches its app after installation. Run `~/.local/bin/mise trust`, preview with `~/.local/bin/mise bootstrap --dry-run`, then run `~/.local/bin/mise bootstrap --yes`.
-6. Start a fresh SSH/login session, then run `dev-machine doctor` and complete GitHub, Tailscale and application sign-ins on this machine.
+6. Approve Tailscale in System Settings → General → Login Items & Extensions → Network Extensions, then allow its VPN configuration. The Sharing extension is optional.
+7. From an SSH session, run `TAILSCALE_BE_CLI=1 /Applications/Tailscale.app/Contents/MacOS/Tailscale up --timeout=30s`. Open the printed sign-in link on your current computer and select the intended tailnet account. A timeout while awaiting browser approval does not mean installation failed.
+8. Start a fresh SSH/login session, then run `dev-machine doctor` and complete GitHub and application sign-ins. Verify a `tailscale ping` from another device in the intended tailnet.
 
 ## Everyday commands
 
