@@ -20,7 +20,9 @@ starship = "1.26.0"
 
 [bootstrap.packages]
 "brew:bat" = { version = "latest", os = "macos/arm64" }
+"brew:colima" = { version = "latest", os = "macos/arm64" }
 "brew:curl" = { version = "latest", os = "macos/arm64" }
+"brew:docker" = { version = "latest", os = "macos/arm64" }
 "brew:eza" = { version = "latest", os = "macos/arm64" }
 "brew:fd" = { version = "latest", os = "macos/arm64" }
 "brew:fastfetch" = { version = "latest", os = "macos/arm64" }
