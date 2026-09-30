@@ -11,3 +11,9 @@ codex = "0.152.0"
 jujutsu = "0.45.1"
 jjui = "0.10.9"
 starship = "1.26.0"
+
+# Install global tools only from the committed lock, so installs never rewrite it.
+# Projects keep their own policy.
+[settings]
+locked = true
+locked_scopes = ["global"]

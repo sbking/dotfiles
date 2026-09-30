@@ -35,3 +35,6 @@ dotfiles/.config/gh/hosts.yml
 dotfiles/.config/graphite/auth
 dotfiles/.codex/auth.json
 dotfiles/.gitconfig.local
+
+# Machine-local audit notes.
+.local/

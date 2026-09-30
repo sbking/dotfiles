@@ -128,6 +128,14 @@ run = "bash scripts/updates.sh"
 description = "Explicitly upgrade host packages; project runtimes remain pinned"
 run = "bash scripts/upgrade-packages.sh"
 
+[tasks."fleet:status"]
+description = "Compare every Mac with this checkout's committed revision"
+run = "bash scripts/fleet.sh status"
+
+[tasks."fleet:sync"]
+description = "Deploy this checkout's committed revision to every Mac"
+run = "bash scripts/fleet.sh sync"
+
 [tasks.validate]
 run = "bash scripts/validate.sh"
 

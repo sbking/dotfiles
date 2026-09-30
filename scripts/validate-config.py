@@ -20,4 +20,8 @@ for path in (root / "dotfiles").rglob("*.json"):
     json.loads(path.read_text())
 lock = tomllib.loads((root / "mise.lock").read_text())
 assert lock, "Lockfile must not be empty"
+assert (root / "dotfiles/.config/mise/mise.lock").read_text() == (root / "mise.lock").read_text(), "Global and provisioning lockfiles differ"
+assert global_config["settings"] == {"locked": True, "locked_scopes": ["global"]}, "Global tools must install from the lock"
+hosts = [line for line in (root / "config/fleet-hosts.txt").read_text().splitlines() if not line.startswith("#")]
+assert hosts and all(re.fullmatch(r"[a-z0-9-]+", host) for host in hosts), hosts
 print("Pins, manifests, sources, JSON and lockfile validated")

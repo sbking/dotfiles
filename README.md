@@ -5,14 +5,20 @@ The supported provisioning target is Apple Silicon macOS. The existing shell/edi
 
 ## New Mac
 
-1. Enable Remote Login for the development account and enroll its authorized SSH public keys separately.
-2. Clone this repository at `~/Projects/sbking/dotfiles-fleet` (or transfer a verified Git bundle if Command Line Tools are not installed yet).
-3. Run `sudo bash scripts/macos-admin.sh` for Command Line Tools, the package prefix, power settings and automatic OS/App Store updates.
-4. Run `bash scripts/install-mise.sh`. This installs mise **2026.9.11** from an official release with a checked-in SHA-256.
-5. Log into the macOS desktop as the development account and leave that session running; Tailscale's package installer launches its app after installation. Run `~/.local/bin/mise trust`, preview with `~/.local/bin/mise bootstrap --dry-run`, then run `~/.local/bin/mise bootstrap --yes`.
-6. Approve Tailscale in System Settings → General → Login Items & Extensions → Network Extensions, then allow its VPN configuration. The Sharing extension is optional.
-7. From an SSH session, run `TAILSCALE_BE_CLI=1 /Applications/Tailscale.app/Contents/MacOS/Tailscale up --timeout=30s`. Open the printed sign-in link on your current computer and select the intended tailnet account. A timeout while awaiting browser approval does not mean installation failed.
-8. Start a fresh SSH/login session, then run `dev-machine doctor` and complete GitHub and application sign-ins. Verify a `tailscale ping` from another device in the intended tailnet.
+1. On the Mac: enable Remote Login for the development account, enroll its authorized SSH public keys, and log into the desktop.
+2. From the control checkout: `scripts/fleet.sh add <host>`, then run the one command it prints. That command asks for the administrator password once, installs the pinned mise, converges the machine and lists the remaining manual steps (Tailscale approval and sign-ins).
+3. Add the host to `config/fleet-hosts.txt`, commit, and run `scripts/fleet.sh sync <host>`.
+
+## Keeping the fleet in sync
+
+The control checkout is the single source of truth; the Macs only ever run a committed revision and are never edited in place.
+
+```sh
+scripts/fleet.sh status   # one line per Mac; non-zero on any drift
+scripts/fleet.sh sync     # deploy HEAD to every Mac, converge, run doctor
+```
+
+`sync` refuses a Mac whose checkout has local edits; move them into a commit here, or pass `--force` to discard them. Logs are kept in `~/.local/state/dev-machine/fleet/`.
 
 ## Everyday commands
 
@@ -50,6 +56,6 @@ The previous chezmoi checkout and installed tool versions are retained on Studio
 
 ## Development
 
-`mise run validate` checks configuration, exact tool pins, the managed-file manifest, shell syntax and JSON. After editing tool versions, keep the global tool config in sync and regenerate `mise.lock` for `macos-arm64,linux-x64`.
+`mise run validate` checks configuration, exact tool pins, the managed-file manifest, shell syntax and JSON. After editing tool versions, keep the global tool config in sync, regenerate `mise.lock` on a Mac and copy it to `dotfiles/.config/mise/mise.lock`. Global tools install in locked mode, so an install never rewrites the deployed lock.
 
 See [bootstrap details](docs/bootstrap.md). Keep changes on Git Town branches with Conventional Commit PR titles; do not commit credentials or machine-generated inventory.

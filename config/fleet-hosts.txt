@@ -1,0 +1,5 @@
+# SSH host names of the managed Macs, one per line.
+mac-studio-a
+mac-studio-b
+mac-mini-a
+mac-mini-b
