@@ -1,5 +1,5 @@
 # Shared Mac development baseline. Host packages follow upstream stable releases.
-min_version = "2026.9.11"
+min_version = "2026.9.12"
 
 [env]
 _.path = ["~/.local/bin", "/opt/homebrew/bin", "/opt/homebrew/sbin"]
