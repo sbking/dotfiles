@@ -44,6 +44,10 @@ Use the full `~/.local/bin/mise` path during initial setup. Project mise configu
 - macOS automatic updates stay enabled. Major OS updates and reboots are supervised over SSH with interactive authentication.
 - Private SSH keys, authorized keys, tokens, app sessions, and Git identity overrides are never copied by bootstrap. Keep identity in `~/.gitconfig.local`.
 
+## Docker
+
+Every Mac serves Docker from the Colima `default` profile: 16 CPU / 64 GiB / 120 GiB on the Studios, 4 CPU / 4 GiB / 60 GiB on the minis. `apply` creates or starts it, links the Compose plugin and selects the `colima` Docker context; a LaunchAgent starts it again at login. `doctor` reports a VM that is stopped or sized differently. `apply` never restarts a running VM, because that stops its containers: run `colima stop`, then `dev-machine apply` to resize.
+
 ## Migration and recovery
 
 mise replaces chezmoi as the active owner of these files. No chezmoi hook is run by the new bootstrap.

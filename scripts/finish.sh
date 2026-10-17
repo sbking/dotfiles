@@ -20,4 +20,5 @@ if [ -x "$code_bin" ]; then
         fi
     done
 fi
+bash scripts/docker-runtime.sh
 bash scripts/inventory.sh

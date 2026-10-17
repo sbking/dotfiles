@@ -23,6 +23,7 @@ starship = "1.26.0"
 "brew:colima" = { version = "latest", os = "macos/arm64" }
 "brew:curl" = { version = "latest", os = "macos/arm64" }
 "brew:docker" = { version = "latest", os = "macos/arm64" }
+"brew:docker-compose" = { version = "latest", os = "macos/arm64" }
 "brew:docker-credential-helper" = { version = "latest", os = "macos/arm64" }
 "brew:eza" = { version = "latest", os = "macos/arm64" }
 "brew:fd" = { version = "latest", os = "macos/arm64" }
@@ -97,6 +98,7 @@ run = "bash scripts/backup-dotfiles.sh"
 "~/.zprofile" = { source = "dotfiles/.zprofile", mode = "copy" }
 "~/.zshrc" = { source = "dotfiles/.zshrc", mode = "copy" }
 "~/Library/Application Support/Code/User/settings.json" = { source = "dotfiles/Library/Application Support/Code/User/settings.json", mode = "copy" }
+"~/Library/LaunchAgents/com.github.sbking.colima.plist" = { source = "dotfiles/Library/LaunchAgents/com.github.sbking.colima.plist", mode = "copy" }
 "~/Library/Application Support/com.mitchellh.ghostty/config.ghostty" = { source = "dotfiles/Library/Application Support/com.mitchellh.ghostty/config.ghostty", mode = "copy" }
 
 "~/.config/mise/mise.lock" = { source = "dotfiles/.config/mise/mise.lock", mode = "copy" }

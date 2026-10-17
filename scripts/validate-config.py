@@ -1,5 +1,6 @@
 import json
 import pathlib
+import plistlib
 import re
 import tomllib
 
@@ -18,6 +19,8 @@ for target, entry in config["dotfiles"].items():
     assert entry["mode"] == "copy", "Deployment must not depend on temporary symlinks"
 for path in (root / "dotfiles").rglob("*.json"):
     json.loads(path.read_text())
+for path in (root / "dotfiles").rglob("*.plist"):
+    plistlib.loads(path.read_bytes())
 lock = tomllib.loads((root / "mise.lock").read_text())
 assert lock, "Lockfile must not be empty"
 assert (root / "dotfiles/.config/mise/mise.lock").read_text() == (root / "mise.lock").read_text(), "Global and provisioning lockfiles differ"

@@ -21,5 +21,6 @@
 .zshrc
 Library/Application Support/Code/User/settings.json
 Library/Application Support/com.mitchellh.ghostty/config.ghostty
+Library/LaunchAgents/com.github.sbking.colima.plist
 .config/mise/mise.lock
 .config/fish/conf.d/mise-activate.fish
