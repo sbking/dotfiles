@@ -20,6 +20,7 @@ check rustc --version
 check go version
 check fish -lc 'command -v node; command -v pnpm; command -v mise'
 check zsh -lc 'command -v node; command -v pnpm; command -v mise'
+check bash scripts/docker-runtime.sh --check
 check test -s "$HOME/.ssh/authorized_keys"
 check test "$(stat -f %Lp "$HOME/.ssh")" = 700
 check test "$(stat -f %Lp "$HOME/.ssh/authorized_keys")" = 600
