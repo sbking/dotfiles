@@ -1,14 +1,19 @@
-if not contains -- "$HOME/.local/bin" $PATH
-    set -gx PATH "$HOME/.local/bin" $PATH
+# Also applies to non-interactive SSH commands.
+fish_add_path --move --path --prepend "$HOME/.local/bin" "$HOME/.local/share/mise/shims" /opt/homebrew/bin /opt/homebrew/sbin
+if not set -q LANG
+    set -gx LANG en_US.UTF-8
+end
+if not set -q LC_CTYPE
+    set -gx LC_CTYPE en_US.UTF-8
 end
 
-if command -q mise
-    mise activate fish | source
+if status is-interactive; and command -q mise
+    command "$HOME/.local/bin/mise" activate fish | source
 end
 
 set -g fish_greeting
 
-if command -q starship
+if status is-interactive; and command -q starship
     starship init fish | source
 end
 
@@ -26,7 +31,7 @@ end
 
 set -gx FZF_DEFAULT_OPTS "--height 40% --layout=reverse --border --color=bg:#1e1e2e,bg+:#313244,fg:#cdd6f4,fg+:#cdd6f4,header:#f5c2e7,hl:#f38ba8,hl+:#f38ba8,info:#cba6f7,marker:#a6e3a1,pointer:#f5c2e7,prompt:#cba6f7,spinner:#f5c2e7,border:#6c7086"
 
-if command -q fzf
+if status is-interactive; and command -q fzf
     fzf --fish | source
 end
 

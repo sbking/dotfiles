@@ -1,7 +1,135 @@
+# Shared Mac development baseline. Host packages follow upstream stable releases.
+min_version = "2026.9.11"
+
+[env]
+_.path = ["~/.local/bin", "/opt/homebrew/bin", "/opt/homebrew/sbin"]
+
+[tools]
+"npm:@withgraphite/graphite-cli" = "1.8.6"
+node = "24.20.0"
+pnpm = "11.25.0"
+bun = "1.4.1"
+python = "3.14.7"
+uv = "0.12.10"
+rust = "1.98.1"
+go = "1.27.1"
+codex = "0.152.0"
+jujutsu = "0.45.1"
+jjui = "0.10.9"
+starship = "1.26.0"
+
+[bootstrap.packages]
+"brew:bat" = { version = "latest", os = "macos/arm64" }
+"brew:curl" = { version = "latest", os = "macos/arm64" }
+"brew:eza" = { version = "latest", os = "macos/arm64" }
+"brew:fd" = { version = "latest", os = "macos/arm64" }
+"brew:fastfetch" = { version = "latest", os = "macos/arm64" }
+"brew:ffmpeg" = { version = "latest", os = "macos/arm64" }
+"brew:fish" = { version = "latest", os = "macos/arm64" }
+"brew:fzf" = { version = "latest", os = "macos/arm64" }
+"brew:gh" = { version = "latest", os = "macos/arm64" }
+"brew:git" = { version = "latest", os = "macos/arm64" }
+"brew:git-delta" = { version = "latest", os = "macos/arm64" }
+"brew:git-town" = { version = "latest", os = "macos/arm64" }
+"brew:htop" = { version = "latest", os = "macos/arm64" }
+"brew:jq" = { version = "latest", os = "macos/arm64" }
+"brew:mas" = { version = "latest", os = "macos/arm64" }
+"brew:neovim" = { version = "latest", os = "macos/arm64" }
+"brew:ripgrep" = { version = "latest", os = "macos/arm64" }
+"brew:rsync" = { version = "latest", os = "macos/arm64" }
+"brew:smartmontools" = { version = "latest", os = "macos/arm64" }
+"brew:tmux" = { version = "latest", os = "macos/arm64" }
+"brew:tree" = { version = "latest", os = "macos/arm64" }
+"brew:wget" = { version = "latest", os = "macos/arm64" }
+"brew:zoxide" = { version = "latest", os = "macos/arm64" }
+"brew-cask:1password" = { version = "latest", os = "macos/arm64", adopt = true }
+"brew-cask:brave-browser" = { version = "latest", os = "macos/arm64", adopt = true }
+"brew-cask:cmux" = { version = "latest", os = "macos/arm64", adopt = true }
+"brew-cask:codex-app" = { version = "latest", os = "macos/arm64", adopt = true }
+"brew-cask:font-iosevka-nerd-font" = { version = "latest", os = "macos/arm64", adopt = true }
+"brew-cask:font-iosevka-term-nerd-font" = { version = "latest", os = "macos/arm64", adopt = true }
+"brew-cask:rustdesk" = { version = "latest", os = "macos/arm64", adopt = true }
+"brew-cask:tailscale-app" = { version = "latest", os = "macos/arm64", adopt = true }
+"brew-cask:visual-studio-code" = { version = "latest", os = "macos/arm64", adopt = true }
+
+[bootstrap.repos]
+"~/.config/tmux/plugins/catppuccin/tmux" = { url = "https://github.com/catppuccin/tmux.git", ref = "d2d25bd3393fe43f19eb4fff6cdd2bdf5578e622" }
+
+[bootstrap.user]
+login_shell = "/opt/homebrew/bin/fish"
+
+[bootstrap.macos.finder]
+show_pathbar = true
+
+[bootstrap.macos.defaults]
+"NSGlobalDomain" = { AppleShowAllExtensions = true }
+"com.apple.finder" = { ShowStatusBar = true }
+
+[bootstrap.hooks.post-dotfiles]
+run = "mise trust ~/.config/mise/config.toml"
+
+[bootstrap.hooks.pre-dotfiles]
+run = "bash scripts/backup-dotfiles.sh"
+
+[dotfiles]
+"~/.codex/AGENTS.md" = { source = "dotfiles/.codex/AGENTS.md", mode = "copy" }
+"~/.config/bat/config" = { source = "dotfiles/.config/bat/config", mode = "copy" }
+"~/.config/bat/themes/Catppuccin Mocha.tmTheme" = { source = "dotfiles/.config/bat/themes/Catppuccin Mocha.tmTheme", mode = "copy" }
+"~/.config/cmux/settings.json" = { source = "dotfiles/.config/cmux/settings.json", mode = "copy" }
+"~/.config/fastfetch/config.jsonc" = { source = "dotfiles/.config/fastfetch/config.jsonc", mode = "copy" }
+"~/.config/fish/config.fish" = { source = "dotfiles/.config/fish/config.fish", mode = "copy" }
+"~/.config/gh/config.yml" = { source = "dotfiles/.config/gh/config.yml", mode = "copy" }
+"~/.config/graphite/aliases" = { source = "dotfiles/.config/graphite/aliases", mode = "copy" }
+"~/.config/mise/config.toml" = { source = "dotfiles/.config/mise/config.toml", mode = "copy" }
+"~/.config/nvim/init.lua" = { source = "dotfiles/.config/nvim/init.lua", mode = "copy" }
+"~/.config/tmux/tmux.conf" = { source = "dotfiles/.config/tmux/tmux.conf", mode = "copy" }
+"~/.config/zsh/aliases.zsh" = { source = "dotfiles/.config/zsh/aliases.zsh", mode = "copy" }
+"~/.config/zsh/completions.zsh" = { source = "dotfiles/.config/zsh/completions.zsh", mode = "copy" }
+"~/.config/zsh/env.zsh" = { source = "dotfiles/.config/zsh/env.zsh", mode = "copy" }
+"~/.gitconfig" = { source = "dotfiles/.gitconfig", mode = "copy" }
+"~/.hushlogin" = { source = "dotfiles/.hushlogin", mode = "copy" }
+"~/.local/bin/dev-machine" = { source = "dotfiles/.local/bin/dev-machine", mode = "copy" }
+"~/.local/bin/tm" = { source = "dotfiles/.local/bin/tm", mode = "copy" }
+"~/.local/bin/tmux-copy" = { source = "dotfiles/.local/bin/tmux-copy", mode = "copy" }
+"~/.zprofile" = { source = "dotfiles/.zprofile", mode = "copy" }
+"~/.zshrc" = { source = "dotfiles/.zshrc", mode = "copy" }
+"~/Library/Application Support/Code/User/settings.json" = { source = "dotfiles/Library/Application Support/Code/User/settings.json", mode = "copy" }
+"~/Library/Application Support/com.mitchellh.ghostty/config.ghostty" = { source = "dotfiles/Library/Application Support/com.mitchellh.ghostty/config.ghostty", mode = "copy" }
+
+"~/.config/mise/mise.lock" = { source = "dotfiles/.config/mise/mise.lock", mode = "copy" }
+
+"~/.config/fish/conf.d/mise-activate.fish" = { source = "dotfiles/.config/fish/conf.d/mise-activate.fish", mode = "copy" }
+
+[tasks.bootstrap]
+description = "Finish editor setup and write the installed-version inventory"
+run = "bash scripts/finish.sh"
+
+[tasks.status]
+description = "Inspect managed state without changing it"
+run = "mise bootstrap status"
+
+[tasks.apply]
+description = "Converge this Mac to the checked-out configuration"
+run = "mise bootstrap --yes"
+
+[tasks.doctor]
+description = "Verify shell, toolchain, host settings and SSH readiness"
+run = "bash scripts/doctor.sh"
+
+[tasks.inventory]
+description = "Record installed versions and the configuration revision"
+run = "bash scripts/inventory.sh"
+
+[tasks.updates]
+description = "Check macOS, tools and applications for updates"
+run = "bash scripts/updates.sh"
+
+[tasks."upgrade:packages"]
+description = "Explicitly upgrade host packages; project runtimes remain pinned"
+run = "bash scripts/upgrade-packages.sh"
+
 [tasks.validate]
-description = "Run the local dotfiles validation suite"
-run = "scripts/validate.sh"
+run = "bash scripts/validate.sh"
 
 [tasks."validate:quick"]
-description = "Run syntax, whitespace, and chezmoi checks without optional runtime smoke tests"
-run = "scripts/validate.sh --quick"
+run = "bash scripts/validate.sh --quick"

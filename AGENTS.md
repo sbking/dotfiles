@@ -1,11 +1,12 @@
 # Agent Notes
 
-This is a public chezmoi dotfiles repo. macOS and Fedora are currently
-configured; other platforms may be added later.
+This is a public mise-managed development-machine configuration.
 
-- `.chezmoiroot` points at `home/`; treat `home/` as the chezmoi source-state root.
-- Preview target changes with `chezmoi --source "$PWD" diff` from the repo root.
-- Run `chezmoi --source "$PWD" apply` only when intentionally updating this machine's live dotfiles.
+- `dotfiles/` contains literal home-relative files; `[dotfiles]` in `mise.toml` is authoritative.
+- Preview with `mise bootstrap --dry-run` and `mise bootstrap dotfiles diff`.
+- Back up differing live files before applying; `scripts/backup-dotfiles.sh` is the pre-dotfiles hook.
+- Keep tool versions exact and regenerate `mise.lock` when changing them.
+- Never run mise bootstrap as root. Only the explicit macOS prerequisites script runs under sudo.
 - Use `git-town.toml` as the shared branch-stack configuration. Prefer small,
   dependent branches over broad single-branch changes when a task naturally
   splits into reviewable layers.
